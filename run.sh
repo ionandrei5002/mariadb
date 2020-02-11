@@ -6,7 +6,7 @@ if [ "`docker volume ls | grep mariadb_data`" == "" ]; then
     docker volume create --name mariadb_data
 fi
 
-docker run -ti --rm \
+docker run -ti -d --rm \
 	-v mariadb_data:/var/lib/mysql/:rw \
 	--name mariadb \
 	mariadb:latest
