@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 if [ "`docker volume ls | grep mariadb_data`" == "" ]; then
     docker volume create --name mariadb_data
 fi
