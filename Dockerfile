@@ -46,6 +46,10 @@ RUN find /etc/mysql/ -name '*.cnf' -print0 \
         | xargs -0 grep -lZE '^(bind-address|log)' \
         | xargs -rt -0 sed -Ei 's/^(bind-address|log)/#&/'
 
+RUN sed -i 's/#bind-address/bind-address/g' /etc/mysql/mariadb.conf.d/50-server.cnf \
+        && sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+
 # CONFIG MYSQL
 VOLUME /var/lib/mysql/
 
@@ -75,8 +79,7 @@ WORKDIR /home/$username
 EXPOSE 3306
 
 COPY init.sh /home/$username/init.sh
-COPY music.sql /home/$username/music.sql
-COPY latest_data.sql /home/$username/latest_data.sql
+COPY appannie.sql /home/$username/appannie.sql
 
 CMD [ "/bin/bash" ]
 
